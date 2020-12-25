@@ -29,7 +29,7 @@ private:
     }
 
     // inserts a node with key, into the BST rooted at root
-    node* insertNodeRecursive(int key, node* root)
+    node* insertNode(node* root, int key)
     {
         // insert the node by first 'deleting' the placeholder node
         if (isPlaceholderNode(root)){
@@ -39,10 +39,10 @@ private:
 
         // to determine a place to insert the node, traverse left
         if (key < root->key){
-            root->left = insertNodeRecursive(key, root->left);
+            root->left = insertNode(root->left, key);
         }
         else{ // or traverse right
-            root->right = insertNodeRecursive(key, root->right);
+            root->right = insertNode(root->right, key);
         }
         return root;
     }
@@ -55,7 +55,6 @@ private:
     }
 
 
-    //
     node* minValueNode(node* root)
     {
         node* current = root;
@@ -65,7 +64,7 @@ private:
         return current;
     }
 
-    node* deleteNodeRecursive(node* root, int key)
+    node* deleteNode(node* root, int key)
     {
         // node not found
         if(isPlaceholderNode(root))
@@ -74,11 +73,11 @@ private:
 
         if(key < (root->key))
         {
-            root->left = deleteNodeRecursive((root->left), key);
+            root->left = deleteNode((root->left), key);
         }
         else if (key > (root->key))
         {
-            root->right = deleteNodeRecursive((root->right), key);
+            root->right = deleteNode((root->right), key);
         }
         else{   // node found
 
@@ -105,7 +104,7 @@ private:
             root->key = temp->key;
 
             // Delete the inorder successor
-            root->right = deleteNodeRecursive(root->right, temp->key);
+            root->right = deleteNode(root->right, temp->key);
         }
         return root;
     }
@@ -158,7 +157,7 @@ public:
     // inserts a node with key
     void insertNode(int key)
     {
-        root = insertNodeRecursive(key, root);
+        root = insertNode(root, key);
     }
 
     // prints the BST
@@ -170,7 +169,7 @@ public:
 
     // deletes the node with key, does nothing if such a node isn't found
     void deleteNode(int key){
-        root = deleteNodeRecursive(root, key);
+        root = deleteNode(root, key);
     }
 
     // searches for node with key,
@@ -212,11 +211,11 @@ int main()
 
     bst.deleteNode(9);
     cout << "after deleting 9: ";
-    bst.printTree();
+    bst.printTree(); // 0 2 12
 
     bst.deleteNode(0);
     cout << "after deleting 0: ";
-    bst.printTree();
+    bst.printTree(); // 2 12
 
 
     return 0;
