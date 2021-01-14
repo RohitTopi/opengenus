@@ -163,7 +163,6 @@ public:
             cout << "Invalid index" << endl;
     }
 
-    //declaration
     friend ostream & operator<<(ostream & os, LinkedList & L)
     {
         node* head = L.head;
